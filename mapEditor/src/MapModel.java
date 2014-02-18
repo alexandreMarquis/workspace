@@ -10,7 +10,11 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-
+/**
+ * 
+ * @author Alexandre
+ *
+ */
 public class MapModel {
 	public static final int TILE_SIZE = 32;
 	private int[][][]map = new int[15][15][2];
@@ -41,6 +45,7 @@ public class MapModel {
 		int y1 = (y / TILE_SIZE);
 		map[x1][y1] = this.selectedTile.clone();
 	}
+	
 	public void setSelectedTile(int x,int y)
 	{
 		System.out.println("Y int : " + y);
