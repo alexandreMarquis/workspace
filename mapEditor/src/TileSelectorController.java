@@ -60,11 +60,6 @@ public class TileSelectorController implements MouseListener,KeyListener,ActionL
 	public void mouseReleased(MouseEvent me) {
 		// TODO Auto-generated method stub
 		synchronized (dataMap) {
-			System.out.println("double :" + me.getPoint().getY());
-			System.out.println("double /32 :" + me.getPoint().getY()/32);
-			System.out.println("cast int :" + (int)me.getPoint().getY());
-			System.out.println("cast int /32:" + (int)me.getPoint().getY()/32);
-			System.out.println("floor:" + Math.floor(me.getPoint().getY()/32));
 			dataMap.setSelectedTile(me.getX(), me.getY());
 		}
 	}

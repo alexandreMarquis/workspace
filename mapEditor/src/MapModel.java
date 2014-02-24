@@ -13,184 +13,152 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 /**
  * 
  * @author Alexandre
- *
+ * 
  */
 public class MapModel {
-	public static final int TILE_SIZE = 32;
-	private int[][][]map = new int[15][15][2];
+	public static final int TILE_SIZE = 25;
+	private int[][][] map = new int[20][20][2];
 	private BufferedImage tileSet = null;
-	private int[] selectedTile = {0,0};
+	private int[] selectedTile = { 0, 0 };
 	private boolean needUpdate = true;
-	
-	public MapModel()
-	{
+
+	public MapModel() {
 		init();
 	}
-	
-	public void init()
-	{
-		for(int i = 0; i < map.length; i++)
-		{
-			for(int j = 0; j < map[i].length; j++)
-			{
+
+	public void init() {
+		for (int i = 0; i < map.length; i++) {
+			for (int j = 0; j < map[i].length; j++) {
 				map[i][j][0] = -1;
 				map[i][j][1] = -1;
 			}
 		}
 	}
-	
-	public void addTile(int x,int y)
-	{
+
+	public void addTile(int x, int y) {
 		int x1 = (x / TILE_SIZE);
 		int y1 = (y / TILE_SIZE);
 		map[x1][y1] = this.selectedTile.clone();
 	}
-	
-	public void setSelectedTile(int x,int y)
-	{
+
+	public void setSelectedTile(int x, int y) {
 		System.out.println("Y int : " + y);
-		this.selectedTile[0] = (x/TILE_SIZE);
-		this.selectedTile[1] = (y/TILE_SIZE);
-		System.out.println("Tile Selector: " + this.selectedTile[0] + " : " + this.selectedTile[1] );
+		this.selectedTile[0] = (x / TILE_SIZE);
+		this.selectedTile[1] = (y / TILE_SIZE);
+		System.out.println("Tile Selector: " + this.selectedTile[0] + " : "
+				+ this.selectedTile[1]);
 	}
-	
-	public boolean getNeedToBeUpdate()
-	{
+
+	public boolean getNeedToBeUpdate() {
 		boolean ntbu = this.needUpdate;
-		
-		if(this.needUpdate)
-		{
+
+		if (this.needUpdate) {
 			this.needUpdate = false;
 		}
-		
+
 		return ntbu;
-}
-	
-	public void setNeedToBeUpdate(boolean ntbu)
-	{
+	}
+
+	public void setNeedToBeUpdate(boolean ntbu) {
 		this.needUpdate = ntbu;
 	}
-	
-	public int[][][] getMap()
-	{
+
+	public int[][][] getMap() {
 		return map;
 	}
-	
-	public BufferedImage getTileSet()
-	{
+
+	public BufferedImage getTileSet() {
 		return this.tileSet;
 	}
-	
-	public BufferedImage getTile(int x,int y)
-	{
-		int x1 = (x*TILE_SIZE);
-		int y1 = (y*TILE_SIZE);
+
+	public BufferedImage getTile(int x, int y) {
+		int x1 = (x * TILE_SIZE);
+		int y1 = (y * TILE_SIZE);
 		return this.tileSet.getSubimage(x1, y1, TILE_SIZE, TILE_SIZE);
 	}
-	
-	public void loadTile()
-	{
-	    JFileChooser chooser = new JFileChooser("C:\\Users\\Alexandre\\Desktop\\xml - Copie\\mapEditor\\res");
-	    FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG,GIF,PNG Images", "jpg", "gif","png");
-	    chooser.setFileFilter(filter);
-	    int returnVal = chooser.showOpenDialog(null);
-	    
-	    if(returnVal == JFileChooser.APPROVE_OPTION) 
-	    {
-	    	String path = chooser.getSelectedFile().getPath();
-	    	
-	    	try 
-	    	{
+
+	public void loadTile() {
+		JFileChooser chooser = new JFileChooser(
+				"C:\\Users\\Alexandre\\Desktop\\");
+		FileNameExtensionFilter filter = new FileNameExtensionFilter(
+				"JPG,GIF,PNG Images", "jpg", "gif", "png");
+		chooser.setFileFilter(filter);
+		int returnVal = chooser.showOpenDialog(null);
+
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			String path = chooser.getSelectedFile().getPath();
+
+			try {
 				tileSet = ImageIO.read(new File(path));
-			} 
-	    	catch (IOException e) 
-			{
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
-	    }
+		}
 	}
-	
-	public void saveMap()
-	{
+
+	public void saveMap() {
 		JFileChooser chooser = new JFileChooser("C:\\Users\\Alexandre\\Desktop");
-	    int returnVal = chooser.showSaveDialog(null);
-	    
-	    if(returnVal == JFileChooser.APPROVE_OPTION) 
-	    {
-	    	String path = chooser.getSelectedFile().getPath();
-	    	BufferedWriter bw = null;
-	    	
-	    	try 
-	    	{
-	    		File file = new File(path);
-	    		 
+		int returnVal = chooser.showSaveDialog(null);
+
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			String path = chooser.getSelectedFile().getPath();
+			BufferedWriter bw = null;
+
+			try {
+				File file = new File(path);
+
 				// if file doesnt exists, then create it
 				if (!file.exists()) {
 					file.createNewFile();
 				}
-	 
+
 				bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
-				
-				//traitement
+
+				// traitement
 				bw.write("this is a test.");
-								
+
 				bw.close();
-			} 
-	    	catch (IOException e) 
-			{
-	    		try 
-    			{
-    				if (bw != null)bw.close();
-    			} 
-    			catch (IOException ex) 
-    			{
-    				ex.printStackTrace();
-    			}
-			}
-	    }
-	}
-	
-	public void loadMap()
-	{
-		JFileChooser chooser = new JFileChooser("C:\\Users\\Alexandre\\Desktop");
-	    int returnVal = chooser.showSaveDialog(null);
-	    
-	    if(returnVal == JFileChooser.APPROVE_OPTION) 
-	    {
-	    	String path = chooser.getSelectedFile().getPath();
-	    	
-	    	BufferedReader br = null;
-			 
-			try {
-    
-				String sCurrentLine;
-    
-				br = new BufferedReader(new FileReader(path));
-    
-				while ((sCurrentLine = br.readLine()) != null) 
-				{
-					//traitement
-				}
-    
-			} 
-			catch (IOException e) 
-			{
-				e.printStackTrace();
-			} 
-			finally 
-			{
-				try 
-				{
-					if (br != null)
-					{
-						br.close();
-					}
-				} 
-				catch (IOException ex) 
-				{
+			} catch (IOException e) {
+				try {
+					if (bw != null)
+						bw.close();
+				} catch (IOException ex) {
 					ex.printStackTrace();
 				}
 			}
-	    }
+		}
+	}
+
+	public void loadMap() {
+		JFileChooser chooser = new JFileChooser("C:\\Users\\Alexandre\\Desktop");
+		int returnVal = chooser.showSaveDialog(null);
+
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			String path = chooser.getSelectedFile().getPath();
+
+			BufferedReader br = null;
+
+			try {
+
+				String sCurrentLine;
+
+				br = new BufferedReader(new FileReader(path));
+
+				while ((sCurrentLine = br.readLine()) != null) {
+					// traitement
+				}
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					if (br != null) {
+						br.close();
+					}
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
+			}
+		}
 	}
 }
