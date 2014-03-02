@@ -98,6 +98,7 @@ public class MapModel {
 
 	public void saveMap() {
 		JFileChooser chooser = new JFileChooser("C:\\Users\\Alexandre\\Desktop");
+<<<<<<< HEAD
 		int returnVal = chooser.showSaveDialog(null);
 
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -107,16 +108,49 @@ public class MapModel {
 			try {
 				File file = new File(path);
 
+=======
+	    int returnVal = chooser.showSaveDialog(null);
+	    
+	    if(returnVal == JFileChooser.APPROVE_OPTION) 
+	    {
+	    	String path = chooser.getSelectedFile().getPath();
+	    	BufferedWriter bw = null;
+	    	int x = 0,
+	    		y = 0;
+	    	try 
+	    	{
+	    		File file = new File(path);
+	    		 
+>>>>>>> test
 				// if file doesnt exists, then create it
 				if (!file.exists()) {
 					file.createNewFile();
 				}
 
 				bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
+<<<<<<< HEAD
 
 				// traitement
 				bw.write("this is a test.");
 
+=======
+				
+				//traitement
+				bw.write("[");
+				for(int i = 0; i < map.length; i++)
+				{
+					for(int j = 0; j < map[i].length; j++)
+					{
+						x = map[i][j][0];
+						y = map[i][j][1];
+						
+						bw.write("[" + x + "," + y + "]");	
+					}
+				}
+				bw.write("]");
+				
+								
+>>>>>>> test
 				bw.close();
 			} catch (IOException e) {
 				try {

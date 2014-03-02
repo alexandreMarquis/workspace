@@ -7,6 +7,11 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import javax.swing.JMenuItem;
 
+/**
+ * 
+ * @author Alexandre
+ *
+ */
 public class MapController implements MouseListener,MouseMotionListener,KeyListener,ActionListener 
 {
 	private MapModel dataMap = null;

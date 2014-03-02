@@ -1,4 +1,8 @@
-
+/**
+ * 
+ * @author Alexandre
+ *
+ */
 public class MapEditor {
 	public static void main(String[] args) {
 		MapModel m = new MapModel();

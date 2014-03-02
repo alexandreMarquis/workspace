@@ -8,7 +8,17 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
+<<<<<<< HEAD
 public class TileSelectorView extends JPanel implements Runnable {
+=======
+/**
+ * 
+ * @author Alexandre
+ *
+ */
+public class TileSelectorView extends JPanel implements Runnable
+{
+>>>>>>> test
 	private MapModel dataMap;
 	public static final int DELAY = 17;
 	public static final int TILE_SIZE = 25;

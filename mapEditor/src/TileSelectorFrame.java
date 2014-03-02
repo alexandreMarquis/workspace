@@ -3,6 +3,11 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 
+/**
+ * 
+ * @author Alexandre
+ *
+ */
 public class TileSelectorFrame extends JFrame
 {
 	public TileSelectorFrame(TileSelectorView v,TileSelectorController c)
