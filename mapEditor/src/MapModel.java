@@ -129,6 +129,7 @@ public class MapModel {
 						
 						bw.write("[" + x + "," + y + "]");	
 					}
+					bw.newLine();
 				}
 				bw.write("]");
 				bw.close();
