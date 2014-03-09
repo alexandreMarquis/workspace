@@ -45,8 +45,7 @@ public class MapModel {
 		System.out.println("Y int : " + y);
 		this.selectedTile[0] = (x / TILE_SIZE);
 		this.selectedTile[1] = (y / TILE_SIZE);
-		System.out.println("Tile Selector: " + this.selectedTile[0] + " : "
-				+ this.selectedTile[1]);
+		System.out.println("Tile Selector: " + this.selectedTile[0] + " : "	+ this.selectedTile[1]);
 	}
 
 	public boolean getNeedToBeUpdate() {
@@ -78,19 +77,21 @@ public class MapModel {
 	}
 
 	public void loadTile() {
-		JFileChooser chooser = new JFileChooser(
-				"C:\\Users\\Alexandre\\Desktop\\");
-		FileNameExtensionFilter filter = new FileNameExtensionFilter(
-				"JPG,GIF,PNG Images", "jpg", "gif", "png");
+		JFileChooser chooser = new JFileChooser("C:\\Users\\Alexandre\\Desktop\\");
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG,GIF,PNG Images", "jpg", "gif", "png");
 		chooser.setFileFilter(filter);
 		int returnVal = chooser.showOpenDialog(null);
 
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
+		if (returnVal == JFileChooser.APPROVE_OPTION) 
+		{
 			String path = chooser.getSelectedFile().getPath();
 
-			try {
+			try 
+			{
 				tileSet = ImageIO.read(new File(path));
-			} catch (IOException e) {
+			} 
+			catch (IOException e) 
+			{
 				e.printStackTrace();
 			}
 		}
@@ -129,16 +130,23 @@ public class MapModel {
 						
 						bw.write("[" + x + "," + y + "]");	
 					}
-					bw.newLine();
+					
+					if(map.length - 1 != i)
+						bw.newLine();
 				}
 				bw.write("]");
 				bw.close();
 				
-			} catch (IOException e) {
-				try {
+			} 
+	    	catch (IOException e) 
+	    	{
+				try 
+				{
 					if (bw != null)
 						bw.close();
-				} catch (IOException ex) {
+				} 
+				catch (IOException ex) 
+				{
 					ex.printStackTrace();
 				}
 			}
@@ -154,24 +162,34 @@ public class MapModel {
 
 			BufferedReader br = null;
 
-			try {
-
-				String sCurrentLine;
+			try 
+			{
+				String line;
 
 				br = new BufferedReader(new FileReader(path));
 
-				while ((sCurrentLine = br.readLine()) != null) {
-					// traitement
+				while ((line = br.readLine()) != null) {
+					for(int i = 0; i < line.length(); i++)
+					{
+						char c = line.charAt(i);
+						
+					}
 				}
 
-			} catch (IOException e) {
+			} 
+			catch (IOException e) 
+			{
 				e.printStackTrace();
-			} finally {
-				try {
-					if (br != null) {
+			} 
+			finally 
+			{
+				try 
+				{
+					if (br != null)
 						br.close();
-					}
-				} catch (IOException ex) {
+				} 
+				catch (IOException ex) 
+				{
 					ex.printStackTrace();
 				}
 			}
