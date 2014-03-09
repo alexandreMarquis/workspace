@@ -9,6 +9,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.text.html.HTMLEditorKit.Parser;
 
 /**
  * 
@@ -112,13 +113,13 @@ public class MapModel {
 	    	{
 	    		File file = new File(path);
 	    		 
-
 				// if file doesnt exists, then create it
 				if (!file.exists()) {
 					file.createNewFile();
 				}
 
 				bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
+				bw.write("Dimension:"+map.length+","+map[0].length+";");
 
 				bw.write("[");
 				for(int i = 0; i < map.length; i++)
@@ -153,9 +154,9 @@ public class MapModel {
 		}
 	}
 
-	public void loadMap() {
+	public void loadMap() {	
 		JFileChooser chooser = new JFileChooser("C:\\Users\\Alexandre\\Desktop");
-		int returnVal = chooser.showSaveDialog(null);
+		int returnVal = chooser.showOpenDialog(null);
 
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			String path = chooser.getSelectedFile().getPath();
@@ -164,15 +165,72 @@ public class MapModel {
 
 			try 
 			{
-				String line;
-
+				String line = null,
+					   strX = null,
+					   strY = null;
+				int x = 0,
+					y = 0,
+					index = 0;
+				
 				br = new BufferedReader(new FileReader(path));
-
-				while ((line = br.readLine()) != null) {
+				
+				
+				//size of the map
+				line = br.readLine();
+				char c = line.charAt(index);
+				while(index < line.length())
+				{
+					while(c != ':')
+					{
+						c = line.charAt(++index);
+					}
+					
+					while(c != ',')
+					{
+						c = line.charAt(index++);
+						strX += c;
+					}
+					
+					while(c != ';')
+					{
+						c = line.charAt(index++);
+						strY += c;
+					}
+					
+					x = Integer.parseInt(strX);
+					y = Integer.parseInt(strY);
+					
+					int[][][] map = new int[x][y][2];
+				}
+				
+				x = 0;
+				y = 0;
+				
+				while ((line = br.readLine()) != null) 
+				{
 					for(int i = 0; i < line.length(); i++)
 					{
-						char c = line.charAt(i);
 						
+						if(i < line.length())
+						{
+							c = line.charAt(i);
+							
+							while(c == '[')
+							{
+								c = line.charAt(++i);
+							}
+							
+							while(c == ',' && i < line.length())
+							{
+								
+								c = line.charAt(++i);
+							}
+							
+							while(c == ']' && i < line.length())
+							{
+								c = line.charAt(++i);
+							}
+						}
 					}
 				}
 
