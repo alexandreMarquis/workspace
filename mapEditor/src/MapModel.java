@@ -120,7 +120,7 @@ public class MapModel {
 
 				bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
 				bw.write("Dimension:"+map.length+","+map[0].length+";");
-
+				bw.newLine();
 				bw.write("[");
 				for(int i = 0; i < map.length; i++)
 				{
@@ -165,9 +165,9 @@ public class MapModel {
 
 			try 
 			{
-				String line = null,
-					   strX = null,
-					   strY = null;
+				String line = "",
+					   strX = "",
+					   strY = "";
 				int x = 0,
 					y = 0,
 					index = 0;
@@ -178,33 +178,35 @@ public class MapModel {
 				//size of the map
 				line = br.readLine();
 				char c = line.charAt(index);
-				while(index < line.length())
+			
+				while(c != ':')
 				{
-					while(c != ':')
-					{
-						c = line.charAt(++index);
-					}
-					
-					while(c != ',')
-					{
-						c = line.charAt(index++);
-						strX += c;
-					}
-					
-					while(c != ';')
-					{
-						c = line.charAt(index++);
-						strY += c;
-					}
-					
-					x = Integer.parseInt(strX);
-					y = Integer.parseInt(strY);
-					
-					int[][][] map = new int[x][y][2];
+					c = line.charAt(++index);
 				}
 				
+				while(line.charAt(index) != ',')
+				{
+					c = line.charAt(++index);
+					if(c != ',')
+						strX += c;
+				}
+				
+				while(line.charAt(index) != ';')
+				{
+					c = line.charAt(++index);
+					if(c != ';')
+						strY += c;
+				}
+				
+				x = Integer.parseInt(strX);
+				y = Integer.parseInt(strY);
+				
+				int[][][] loadedMap = new int[x][y][2];
 				x = 0;
 				y = 0;
+				strX = "";
+				strY = "";
+				
 				
 				while ((line = br.readLine()) != null) 
 				{
