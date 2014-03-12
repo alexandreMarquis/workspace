@@ -210,32 +210,53 @@ public class MapModel {
 				
 				while ((line = br.readLine()) != null) 
 				{
-					for(int i = 0; i < line.length(); i++)
+					int i = 0;
+					c = line.charAt(i);
+					
+					while(i < line.length() - 1)
 					{
+						strX = "";
+						strY = "";
 						
-						if(i < line.length())
+						while(line.charAt(i) == '[')
 						{
-							c = line.charAt(i);
-							
-							while(c == '[')
-							{
-								c = line.charAt(++i);
-							}
-							
-							while(c == ',' && i < line.length())
-							{
-								
-								c = line.charAt(++i);
-							}
-							
-							while(c == ']' && i < line.length())
-							{
-								c = line.charAt(++i);
-							}
+							i++;
 						}
+						
+						while(line.charAt(i) != ',')
+						{
+							if(line.charAt(i) != ',')
+								strX += line.charAt(i);
+							i++;
+						}
+						
+						while(line.charAt(i) != ']')
+						{
+							if(line.charAt(i) != ']' && line.charAt(i) != ',')
+								strY += line.charAt(i);
+							i++;
+						}
+						
+						int [] value = {Integer.parseInt(strX),Integer.parseInt(strY)};
+						loadedMap[x][y] = value.clone();
+						y++;
+						i++;
 					}
+					x++;
+					y = 0;
 				}
-
+				//debug
+				/*for(int i = 0; i < loadedMap.length; i++)
+				{
+					for(int j = 0; j < loadedMap[i].length; j++)
+					{
+						System.out.print("[" + loadedMap[i][j][0] + ":" + loadedMap[i][j][1]+ "]");
+					}
+					System.out.println("\n");
+				}*/
+				
+				map = loadedMap.clone();
+				setNeedToBeUpdate(true);
 			} 
 			catch (IOException e) 
 			{
