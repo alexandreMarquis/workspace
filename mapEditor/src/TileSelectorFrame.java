@@ -18,6 +18,7 @@ public class TileSelectorFrame extends JFrame
 		this.setResizable(true);
 		this.setVisible(true);
 		this.setLayout(new BorderLayout());
+		this.addWindowListener(c);
 		
 		JScrollPane js = new JScrollPane();
 		js.getViewport().add(v);

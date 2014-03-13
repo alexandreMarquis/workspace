@@ -99,13 +99,17 @@ public class MapController implements MouseListener,MouseMotionListener,KeyListe
 		else if(event.compareToIgnoreCase("load tile") == 0)
 		{
 			System.out.println("load tile");
-			this.dataMap.loadTile();
-			if(this.dataMap.getTileSet() != null)
+			if(!this.dataMap.isTileSetLoad())
 			{
-				TileSelectorView v = new TileSelectorView(dataMap);
-				TileSelectorController c = new TileSelectorController(dataMap);
-				v.addListner(c);
-				TileSelectorFrame f = new TileSelectorFrame(v,c);
+				this.dataMap.loadTile();
+				if(this.dataMap.getTileSet() != null)
+				{
+					TileSelectorView v = new TileSelectorView(dataMap);
+					TileSelectorController c = new TileSelectorController(dataMap);
+					v.addListner(c);
+					TileSelectorFrame f = new TileSelectorFrame(v,c);
+					dataMap.setTileSetLoad(true);
+				}
 			}
 		}
 	}

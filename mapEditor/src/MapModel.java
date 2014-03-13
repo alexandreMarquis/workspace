@@ -22,6 +22,8 @@ public class MapModel {
 	private BufferedImage tileSet = null;
 	private int[] selectedTile = { 0, 0 };
 	private boolean needUpdate = true;
+	private boolean isTileSetLoad = false;
+	private String tileSetPath = null;
 
 	public MapModel() {
 		init();
@@ -48,6 +50,10 @@ public class MapModel {
 		this.selectedTile[1] = (y / TILE_SIZE);
 		System.out.println("Tile Selector: " + this.selectedTile[0] + " : "	+ this.selectedTile[1]);
 	}
+	
+	public void setTileSetLoad(boolean b) {
+		isTileSetLoad = b;
+	}
 
 	public boolean getNeedToBeUpdate() {
 		boolean ntbu = this.needUpdate;
@@ -66,6 +72,10 @@ public class MapModel {
 	public int[][][] getMap() {
 		return map;
 	}
+	
+	public boolean isTileSetLoad() {
+		return isTileSetLoad;
+	}
 
 	public BufferedImage getTileSet() {
 		return this.tileSet;
@@ -78,18 +88,28 @@ public class MapModel {
 	}
 
 	public void loadTile() {
+		int returnVal;
 		JFileChooser chooser = new JFileChooser("C:\\Users\\Alexandre\\Desktop\\");
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG,GIF,PNG Images", "jpg", "gif", "png");
 		chooser.setFileFilter(filter);
-		int returnVal = chooser.showOpenDialog(null);
-
+		
+		if(tileSetPath == null)
+		{
+			returnVal = chooser.showOpenDialog(null);
+		}
+		else
+		{
+			returnVal = JFileChooser.APPROVE_OPTION;
+		}
+	
 		if (returnVal == JFileChooser.APPROVE_OPTION) 
 		{
-			String path = chooser.getSelectedFile().getPath();
-
+			if(tileSetPath == null)
+				tileSetPath = chooser.getSelectedFile().getPath();
+			
 			try 
 			{
-				tileSet = ImageIO.read(new File(path));
+				tileSet = ImageIO.read(new File(tileSetPath));
 			} 
 			catch (IOException e) 
 			{
