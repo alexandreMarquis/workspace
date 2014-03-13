@@ -23,7 +23,7 @@ public class MapModel {
 	private int[] selectedTile = { 0, 0 };
 	private boolean needUpdate = true;
 	private boolean isTileSetLoad = false;
-	private String tileSetPath = null;
+	private String tileSetPath = "";
 
 	public MapModel() {
 		init();
@@ -93,7 +93,7 @@ public class MapModel {
 		FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG,GIF,PNG Images", "jpg", "gif", "png");
 		chooser.setFileFilter(filter);
 		
-		if(tileSetPath == null)
+		if(tileSetPath == "")
 		{
 			returnVal = chooser.showOpenDialog(null);
 		}
@@ -104,8 +104,10 @@ public class MapModel {
 	
 		if (returnVal == JFileChooser.APPROVE_OPTION) 
 		{
-			if(tileSetPath == null)
+			if(tileSetPath == "")
+			{
 				tileSetPath = chooser.getSelectedFile().getPath();
+			}
 			
 			try 
 			{
@@ -139,8 +141,17 @@ public class MapModel {
 				}
 
 				bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
+				
+				//le path du tileSet
+				bw.write("TileSetPath:"+this.tileSetPath+";");
+				bw.newLine();
+				
+				
+				//dimension de la map
 				bw.write("Dimension:"+map.length+","+map[0].length+";");
 				bw.newLine();
+				
+				//la map
 				bw.write("[");
 				for(int i = 0; i < map.length; i++)
 				{
@@ -193,11 +204,27 @@ public class MapModel {
 					index = 0;
 				
 				br = new BufferedReader(new FileReader(path));
-				
-				
-				//size of the map
+				//load tileSetPath
 				line = br.readLine();
 				char c = line.charAt(index);
+				
+				while(c != ':')
+				{
+					c = line.charAt(++index);
+				}
+				
+				while(line.charAt(index) != ';')
+				{
+					c = line.charAt(++index);
+					if(c != ';')
+						tileSetPath += c;
+				}
+				
+				index = 0;
+				
+				//load size of the map
+				line = br.readLine();
+				c = line.charAt(index);
 			
 				while(c != ':')
 				{
@@ -227,7 +254,7 @@ public class MapModel {
 				strX = "";
 				strY = "";
 				
-				
+				//load map
 				while ((line = br.readLine()) != null) 
 				{
 					int i = 0;
@@ -276,6 +303,18 @@ public class MapModel {
 				}*/
 				
 				map = loadedMap.clone();
+				
+				//a cahanger (mettre une fonction)
+				this.loadTile();
+				if(this.getTileSet() != null)
+				{
+					TileSelectorView v = new TileSelectorView(this);
+					TileSelectorController c1 = new TileSelectorController(this);
+					v.addListner(c1);
+					TileSelectorFrame f = new TileSelectorFrame(v,c1);
+					this.setTileSetLoad(true);
+				}
+				
 				setNeedToBeUpdate(true);
 			} 
 			catch (IOException e) 
