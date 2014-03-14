@@ -304,7 +304,7 @@ public class MapModel {
 				
 				map = loadedMap.clone();
 				
-				//a cahanger (mettre une fonction)
+				//a changer (mettre une fonction) ne pas oublier que le model n'est pas supposer de connetre la vue :/
 				this.loadTile();
 				if(this.getTileSet() != null)
 				{
