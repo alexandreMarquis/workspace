@@ -292,19 +292,9 @@ public class MapModel {
 					x++;
 					y = 0;
 				}
-				//debug
-				/*for(int i = 0; i < loadedMap.length; i++)
-				{
-					for(int j = 0; j < loadedMap[i].length; j++)
-					{
-						System.out.print("[" + loadedMap[i][j][0] + ":" + loadedMap[i][j][1]+ "]");
-					}
-					System.out.println("\n");
-				}*/
 				
 				map = loadedMap.clone();
 				
-				//a changer (mettre une fonction) ne pas oublier que le model n'est pas supposer de connetre la vue :/
 				this.loadTile();
 				if(this.getTileSet() != null)
 				{
