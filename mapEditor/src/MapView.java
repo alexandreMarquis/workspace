@@ -13,6 +13,12 @@ public class MapView extends JPanel implements Runnable {
 
 	public static final int DELAY = 17;
 	public static final int TILE_SIZE = 25;
+	public static final int DEFAULT_WIDTH_JPANEL = 500;
+	public static final int DEFAULT_HEIGHT_JPANEL = 500;
+	
+	private int widthJPanel = 0;;
+	private int heigthJPanel = 0;
+	
 	private Thread animator;
 	private MapModel dataMap = null;
 	
@@ -20,7 +26,7 @@ public class MapView extends JPanel implements Runnable {
 	{
 		super();
 		this.dataMap = dataMap;
-		this.setPreferredSize(new Dimension(500, 500));
+		this.setPreferredSize(new Dimension(dataMap.getMap().length * TILE_SIZE, dataMap.getMap()[0].length * TILE_SIZE));
 		this.setBackground(Color.black);
 		this.setDoubleBuffered(true);
 		this.setFocusable(true);
@@ -74,7 +80,7 @@ public class MapView extends JPanel implements Runnable {
 					if(x != -1 && y != -1)
 					{
 						bf = dataMap.getTile(x, y);
-						System.out.println("Map TILE: " + x + " : " + y);
+						//System.out.println("Map TILE: " + x + " : " + y);
 						g2d.drawImage(bf,(i * TILE_SIZE),(j * TILE_SIZE),TILE_SIZE,TILE_SIZE,null);
 					}
 				}

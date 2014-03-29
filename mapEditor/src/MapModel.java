@@ -18,7 +18,10 @@ import javax.swing.text.html.HTMLEditorKit.Parser;
  */
 public class MapModel {
 	public static final int TILE_SIZE = 25;
-	private int[][][] map = new int[20][20][2];
+	public static final int DEFAULT_MAP_SIZE_WIDTH = 20;
+	public static final int DEFAULT_MAP_SIZE_HEIGHT= 20;
+	
+	private int[][][] map = null;
 	private BufferedImage tileSet = null;
 	private int[] selectedTile = { 0, 0 };
 	private boolean needUpdate = true;
@@ -26,6 +29,7 @@ public class MapModel {
 	private String tileSetPath = "";
 
 	public MapModel() {
+		map = new int[DEFAULT_MAP_SIZE_WIDTH][DEFAULT_MAP_SIZE_HEIGHT][2];
 		init();
 	}
 

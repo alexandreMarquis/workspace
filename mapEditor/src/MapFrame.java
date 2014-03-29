@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 import javax.swing.*;
 
@@ -35,7 +37,7 @@ public class MapFrame extends JFrame{
 		loadTile.addActionListener(c);
 		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setResizable(false);
+		this.setResizable(true);
 		this.setVisible(true);
 		JScrollPane js = new JScrollPane();
 		js.getViewport().add(v);
@@ -43,6 +45,9 @@ public class MapFrame extends JFrame{
 		//this.setLayout(new BorderLayout());
 		//this.add(v,BorderLayout.CENTER);
 		this.pack();
+		
 		this.setLocationRelativeTo(null);
 	}
+	
+	
 }
