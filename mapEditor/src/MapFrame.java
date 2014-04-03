@@ -2,6 +2,11 @@ import java.awt.*;
 
 import javax.swing.*;
 
+/**
+ * 
+ * @author Alexandre
+ *
+ */
 public class MapFrame extends JFrame{
 	
 	public MapFrame(MapView v,MapController c)

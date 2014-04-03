@@ -10,7 +10,11 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-
+/**
+ * 
+ * @author Alexandre
+ *
+ */
 public class MapModel {
 	public static final int TILE_SIZE = 32;
 	private int[][][]map = new int[15][15][2];
@@ -41,6 +45,7 @@ public class MapModel {
 		int y1 = (y / TILE_SIZE);
 		map[x1][y1] = this.selectedTile.clone();
 	}
+	
 	public void setSelectedTile(int x,int y)
 	{
 		System.out.println("Y int : " + y);
@@ -114,7 +119,8 @@ public class MapModel {
 	    {
 	    	String path = chooser.getSelectedFile().getPath();
 	    	BufferedWriter bw = null;
-	    	
+	    	int x = 0,
+	    		y = 0;
 	    	try 
 	    	{
 	    		File file = new File(path);
@@ -127,7 +133,19 @@ public class MapModel {
 				bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
 				
 				//traitement
-				bw.write("this is a test.");
+				bw.write("[");
+				for(int i = 0; i < map.length; i++)
+				{
+					for(int j = 0; j < map[i].length; j++)
+					{
+						x = map[i][j][0];
+						y = map[i][j][1];
+						
+						bw.write("[" + x + "," + y + "]");	
+					}
+				}
+				bw.write("]");
+				
 								
 				bw.close();
 			} 

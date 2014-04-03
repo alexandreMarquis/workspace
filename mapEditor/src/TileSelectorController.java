@@ -5,6 +5,11 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+/**
+ * 
+ * @author Alexandre
+ *
+ */
 public class TileSelectorController implements MouseListener,KeyListener,ActionListener
 {
 	private MapModel dataMap = null;

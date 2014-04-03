@@ -4,6 +4,11 @@ import java.util.*;
 
 import javax.swing.*;
 
+/**
+ * 
+ * @author Alexandre
+ *
+ */
 public class MapView extends JPanel implements Runnable {
 
 	public static final int DELAY = 17;

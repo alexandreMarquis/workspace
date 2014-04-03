@@ -8,7 +8,11 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
-
+/**
+ * 
+ * @author Alexandre
+ *
+ */
 public class TileSelectorView extends JPanel implements Runnable
 {
 	private MapModel dataMap;
