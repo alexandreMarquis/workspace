@@ -12,7 +12,7 @@ import javax.swing.*;
 public class MapView extends JPanel implements Runnable {
 
 	public static final int DELAY = 17;
-	public static final int TILE_SIZE = 32;
+	public static final int TILE_SIZE = 25;
 	private Thread animator;
 	private MapModel dataMap = null;
 	
@@ -20,7 +20,7 @@ public class MapView extends JPanel implements Runnable {
 	{
 		super();
 		this.dataMap = dataMap;
-		this.setPreferredSize(new Dimension(480, 480));
+		this.setPreferredSize(new Dimension(500, 500));
 		this.setBackground(Color.black);
 		this.setDoubleBuffered(true);
 		this.setFocusable(true);
