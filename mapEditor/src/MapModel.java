@@ -1,3 +1,5 @@
+import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -27,7 +29,8 @@ public class MapModel {
 	private boolean needUpdate = true;
 	private boolean isTileSetLoad = false;
 	private String tileSetPath = "";
-
+	private Rectangle selectionRectangle = null;
+	
 	public MapModel() {
 		map = new int[DEFAULT_MAP_SIZE_WIDTH][DEFAULT_MAP_SIZE_HEIGHT][2];
 		init();
@@ -83,6 +86,29 @@ public class MapModel {
 
 	public BufferedImage getTileSet() {
 		return this.tileSet;
+	}
+	
+	public void setSelectionRectangle(int x1, int y1, int x2, int y2, boolean setItNull) {
+		if(setItNull)
+		{
+			this.selectionRectangle = null;
+		}
+		else
+		{
+			if(this.selectionRectangle == null)
+			{
+				this.selectionRectangle = new Rectangle(x1, y1, (x2 - x1), (y2 - y1));
+			}
+			else
+			{
+				this.selectionRectangle.setLocation(x1, y1);
+				this.selectionRectangle.setSize((x2 - x1), (y2 - y1));
+			}
+		}
+	}
+	
+	public Rectangle getSelectionRectangle() {
+		return this.selectionRectangle;
 	}
 
 	public BufferedImage getTile(int x, int y) {

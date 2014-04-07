@@ -103,6 +103,7 @@ public class TileSelectorController implements MouseListener,KeyListener,ActionL
 						//creer nouvelle fonction
 					}
 				}
+				isMouseDragged = false;
 			}
 			else
 			{

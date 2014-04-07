@@ -88,20 +88,35 @@ public class MapView extends JPanel implements Runnable {
 		}	
 	}
 	
+	public void drawSelectionRectangle(Graphics2D g2d)
+	{
+		g2d.setColor(Color.red);
+		Rectangle r = this.dataMap.getSelectionRectangle();
+		if(r != null)
+		{
+			g2d.draw(r);
+		}
+		else
+		{
+			drawGrid(g2d, this.getSize().width, this.getSize().height, TILE_SIZE);
+			drawTile(g2d);
+		}
+		
+			
+	}
+	
 	public void paint(Graphics g)
 	{
-		
 			Graphics2D g2d = (Graphics2D) g;
 			super.paint(g2d);
 			
 			drawGrid(g2d, this.getSize().width, this.getSize().height, TILE_SIZE);
 			drawTile(g2d);
+			drawSelectionRectangle(g2d);
 			
 			Toolkit.getDefaultToolkit().sync();
 			
 			g2d.dispose();
-			
-
 	}
 	
 	public void animationCycle()
