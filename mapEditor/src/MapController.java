@@ -111,7 +111,7 @@ public class MapController implements MouseListener,MouseMotionListener,KeyListe
 					}
 					
 					isMouseDragged = false;
-					this.dataMap.setSelectionRectangle(this.mousePressedX,this.mousePressedY,me.getX(),me.getY(), true);
+					this.dataMap.setSelectionRectangle(0,0,0,0, true);
 				}
 				else
 				{
@@ -169,8 +169,9 @@ public class MapController implements MouseListener,MouseMotionListener,KeyListe
 	@Override
 	public void mouseDragged(MouseEvent me) {
 		// TODO Auto-generated method stub
+		
 		isMouseDragged = true;
-		if(dataMap.isTileSetLoad())
+		if(this.dataMap.isTileSetLoad())
 		{
 			this.dataMap.setSelectionRectangle(this.mousePressedX,this.mousePressedY,me.getX(),me.getY(), false);
 			this.dataMap.setNeedToBeUpdate(true);

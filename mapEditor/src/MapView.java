@@ -101,8 +101,6 @@ public class MapView extends JPanel implements Runnable {
 			drawGrid(g2d, this.getSize().width, this.getSize().height, TILE_SIZE);
 			drawTile(g2d);
 		}
-		
-			
 	}
 	
 	public void paint(Graphics g)
