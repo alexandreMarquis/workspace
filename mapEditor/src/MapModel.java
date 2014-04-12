@@ -52,10 +52,17 @@ public class MapModel {
 	}
 
 	public void setSelectedTile(int x, int y) {
-		System.out.println("Y int : " + y);
 		this.selectedTile[0] = (x / TILE_SIZE);
 		this.selectedTile[1] = (y / TILE_SIZE);
-		System.out.println("Tile Selector: " + this.selectedTile[0] + " : "	+ this.selectedTile[1]);
+	}
+	
+	public void setSelectedTile(int[][][] selectedTiles)
+	{
+		for (int i = 0; i < selectedTiles.length; i++) {
+			for (int j = 0; j < selectedTiles[i].length; j++) {
+
+			}
+		}
 	}
 	
 	public void setTileSetLoad(boolean b) {
