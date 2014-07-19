@@ -97,7 +97,8 @@ public class TileSelectorController implements MouseListener,KeyListener,ActionL
 				}
 				//**DEPARTURE/*//Socket///
 				//cette array a la mauvaise size.
-				int[][] selectedTiles = {{0,0},{0,50},{50,0},{50,50}};//new int [(mouseReleaseX/dataMap.TILE_SIZE) + (mouseReleaseY/dataMap.TILE_SIZE)][2];
+				int[][][] selectedTiles = {{{0,0} ,{0,50}},
+										   {{50,0},{50,50}}};//new int [(mouseReleaseX/dataMap.TILE_SIZE) + (mouseReleaseY/dataMap.TILE_SIZE)][2];
 				int i = 0;
 				
 				/*for(int x = mousePressedX; x < mouseReleaseX; x += dataMap.TILE_SIZE)

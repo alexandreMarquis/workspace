@@ -25,7 +25,7 @@ public class MapModel {
 	
 	private int[][][] map = null;
 	private BufferedImage tileSet = null;
-	private int[][] selectedTile = {{0,0}};
+	private int[][][] selectedTile = {{{0,0}}};
 	private boolean needUpdate = true;
 	private boolean isTileSetLoad = false;
 	private String tileSetPath = "";
@@ -46,9 +46,9 @@ public class MapModel {
 	}
 
 	public void addTile(int x, int y) {
-		int x1 = (x / TILE_SIZE);
-		int y1 = (y / TILE_SIZE);
-		map[x1][y1] = this.selectedTile[0].clone();
+		//int x1 = (x / TILE_SIZE);
+		//int y1 = (y / TILE_SIZE);
+		//map[x1][y1] = this.selectedTile[0].clone();
 	}
 	
 	public void addTile(int x1,int y1,int x2,int y2)
@@ -72,25 +72,28 @@ public class MapModel {
 					System.out.println("m: " + m);
 				}
 				
-				map[i][j]= this.selectedTile[m];
-				m++;
+				if(n == this.selectedTile[m].length) 
+				{
+					n = 0;
+					System.out.println("n: " + n);
+				}
+				
+				map[i][j][0]= this.selectedTile[m][n][0];
+				map[i][j][1]= this.selectedTile[m][n][1];
+				n++;
 			}
+			m++;
+			n = 0;
 			
-			if(n == this.selectedTile[m].length) 
-			{
-				n = 0;
-				System.out.println("n: " + n);
-			}
-			n++;
 		}
 	}
 	
 	public void setSelectedTile(int x, int y) {
-		this.selectedTile[0][0] = (x / TILE_SIZE);
-		this.selectedTile[0][1] = (y / TILE_SIZE);
+		//this.selectedTile[0][0] = (x / TILE_SIZE);
+		//this.selectedTile[0][1] = (y / TILE_SIZE);
 	}
 	
-	public void setSelectedTile(int [][] selectedTile)
+	public void setSelectedTile(int [][][] selectedTile)
 	{
 		this.selectedTile = selectedTile;
 	}
