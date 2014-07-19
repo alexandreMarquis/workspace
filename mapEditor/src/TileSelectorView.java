@@ -23,7 +23,7 @@ public class TileSelectorView extends JPanel implements Runnable
 		super();
 		this.dataMap = dataMap;
 		this.setPreferredSize(new Dimension(dataMap.getTileSet().getHeight(),
-				this.dataMap.getTileSet().getWidth()));
+		this.dataMap.getTileSet().getWidth()));
 		this.setBackground(Color.black);
 		this.setDoubleBuffered(true);
 		this.setFocusable(true);

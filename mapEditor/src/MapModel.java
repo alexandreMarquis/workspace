@@ -25,7 +25,7 @@ public class MapModel {
 	
 	private int[][][] map = null;
 	private BufferedImage tileSet = null;
-	private int[] selectedTile = { 0, 0 };
+	private int[][] selectedTile = {{0,0}};
 	private boolean needUpdate = true;
 	private boolean isTileSetLoad = false;
 	private String tileSetPath = "";
@@ -48,21 +48,51 @@ public class MapModel {
 	public void addTile(int x, int y) {
 		int x1 = (x / TILE_SIZE);
 		int y1 = (y / TILE_SIZE);
-		map[x1][y1] = this.selectedTile.clone();
-	}
-
-	public void setSelectedTile(int x, int y) {
-		this.selectedTile[0] = (x / TILE_SIZE);
-		this.selectedTile[1] = (y / TILE_SIZE);
+		map[x1][y1] = this.selectedTile[0].clone();
 	}
 	
-	public void setSelectedTile(int[][][] selectedTiles)
+	public void addTile(int x1,int y1,int x2,int y2)
 	{
-		for (int i = 0; i < selectedTiles.length; i++) {
-			for (int j = 0; j < selectedTiles[i].length; j++) {
-
+		int m = 0,
+			n = 0;
+		
+		//la position dans la grille 
+		x1 = (x1 / TILE_SIZE);
+		y1 = (y1 / TILE_SIZE);
+		x2 = (x2 / TILE_SIZE);
+		y2 = (y2 / TILE_SIZE);
+		
+		for (int i = x1; i <= x2; i++) 
+		{
+			for (int j = y1; j <= y2; j++) 
+			{
+				if(m == this.selectedTile.length) 
+				{
+					m = 0;
+					System.out.println("m: " + m);
+				}
+				
+				map[i][j]= this.selectedTile[m];
+				m++;
 			}
+			
+			if(n == this.selectedTile[m].length) 
+			{
+				n = 0;
+				System.out.println("n: " + n);
+			}
+			n++;
 		}
+	}
+	
+	public void setSelectedTile(int x, int y) {
+		this.selectedTile[0][0] = (x / TILE_SIZE);
+		this.selectedTile[0][1] = (y / TILE_SIZE);
+	}
+	
+	public void setSelectedTile(int [][] selectedTile)
+	{
+		this.selectedTile = selectedTile;
 	}
 	
 	public void setTileSetLoad(boolean b) {

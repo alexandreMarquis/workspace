@@ -75,11 +75,13 @@ public class TileSelectorController implements MouseListener,KeyListener,ActionL
 	@Override
 	public void mouseReleased(MouseEvent me) {
 		// TODO Auto-generated method stub
+		mouseReleaseX = me.getX();
+		mouseReleaseY = me.getY();
+		
 		synchronized (dataMap) {
+			System.out.println(isMouseDragged);
 			if(isMouseDragged)
 			{
-				ArrayList<int[]> tileSelected = new ArrayList<int[]>();
-				
 				if(mousePressedX > mouseReleaseX)
 				{
 					int temp = mousePressedX;
@@ -93,16 +95,24 @@ public class TileSelectorController implements MouseListener,KeyListener,ActionL
 					mousePressedY = mouseReleaseY;
 					mouseReleaseY = temp;
 				}
+				//**DEPARTURE/*//Socket///
+				//cette array a la mauvaise size.
+				int[][] selectedTiles = {{0,0},{0,50},{50,0},{50,50}};//new int [(mouseReleaseX/dataMap.TILE_SIZE) + (mouseReleaseY/dataMap.TILE_SIZE)][2];
+				int i = 0;
 				
-				for(int x = mousePressedX; x <= mouseReleaseX; x += dataMap.TILE_SIZE)
+				/*for(int x = mousePressedX; x < mouseReleaseX; x += dataMap.TILE_SIZE)
 				{
-					for(int y = mousePressedY; y <= mouseReleaseY; y += dataMap.TILE_SIZE)
+					for(int y = mousePressedY; y < mouseReleaseY; y += dataMap.TILE_SIZE)
 					{
 						int[] pos = {x,y};
-						tileSelected.add(pos);
-						//creer nouvelle fonction
+						System.out.println("selectedTiles: " + selectedTiles.length);
+						System.out.println("i: " + i);
+						
+						selectedTiles[i] = pos;//pos.clone();
+						i++;
 					}
-				}
+				}*/
+				this.dataMap.setSelectedTile(selectedTiles);
 				isMouseDragged = false;
 			}
 			else
@@ -116,6 +126,7 @@ public class TileSelectorController implements MouseListener,KeyListener,ActionL
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
 		isMouseDragged = true;
+		System.out.println("x: " + e.getX());
 	}
 
 	@Override

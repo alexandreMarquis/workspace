@@ -101,16 +101,21 @@ public class MapController implements MouseListener,MouseMotionListener,KeyListe
 						mouseReleaseY = temp;
 					}
 					
-					for(int x = mousePressedX; x <= mouseReleaseX; x += dataMap.TILE_SIZE)
+					/*for(int x = mousePressedX; x <= mouseReleaseX; x += dataMap.TILE_SIZE)
 					{
 						for(int y = mousePressedY; y <= mouseReleaseY; y += dataMap.TILE_SIZE)
 						{
 							this.dataMap.addTile(x, y);
 							this.dataMap.setNeedToBeUpdate(true);
 						}
-					}
+					}*/
+					
+					this.dataMap.addTile(mousePressedX, mousePressedY, mouseReleaseX, mouseReleaseY);
+					this.dataMap.setNeedToBeUpdate(true);
 					
 					isMouseDragged = false;
+					
+					//reset selection rectangle
 					this.dataMap.setSelectionRectangle(0,0,0,0, true);
 				}
 				else
@@ -159,6 +164,7 @@ public class MapController implements MouseListener,MouseMotionListener,KeyListe
 					TileSelectorView v = new TileSelectorView(dataMap);
 					TileSelectorController c = new TileSelectorController(dataMap);
 					v.addListner(c);
+					v.addMouseMotionListener(c);
 					TileSelectorFrame f = new TileSelectorFrame(v,c);
 					dataMap.setTileSetLoad(true);
 				}
