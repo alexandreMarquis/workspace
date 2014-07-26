@@ -74,7 +74,6 @@ public class TileSelectorController implements MouseListener,KeyListener,ActionL
 
 	@Override
 	public void mouseReleased(MouseEvent me) {
-		// TODO Auto-generated method stub
 		mouseReleaseX = me.getX();
 		mouseReleaseY = me.getY();
 		
@@ -97,37 +96,57 @@ public class TileSelectorController implements MouseListener,KeyListener,ActionL
 				}
 				//**DEPARTURE/*//Socket///
 				//cette array a la mauvaise size.
-				int[][][] selectedTiles = {{{0,0} ,{0,50}},
-										   {{50,0},{50,50}}};//new int [(mouseReleaseX/dataMap.TILE_SIZE) + (mouseReleaseY/dataMap.TILE_SIZE)][2];
-				int i = 0;
+				//{{{0,0} ,{0,50}},{{50,0},{50,50}}};
+				int[][][] selectedTiles = null;
+				double 	mrX = 0,
+						mrY = 0;
+				int		m = 0,
+						n = 0;
+				mrX = mouseReleaseX;
+				mrY = mouseReleaseY;
 				
-				/*for(int x = mousePressedX; x < mouseReleaseX; x += dataMap.TILE_SIZE)
+				selectedTiles = new int [(int) Math.ceil((mrX/dataMap.TILE_SIZE) - (mousePressedX / dataMap.TILE_SIZE))][(int) Math.ceil((mrY/dataMap.TILE_SIZE) - (mousePressedY / dataMap.TILE_SIZE))][2];
+				
+				for(int x = mousePressedX; x < mouseReleaseX; x += dataMap.TILE_SIZE)
 				{
 					for(int y = mousePressedY; y < mouseReleaseY; y += dataMap.TILE_SIZE)
 					{
-						int[] pos = {x,y};
-						System.out.println("selectedTiles: " + selectedTiles.length);
-						System.out.println("i: " + i);
+						if(m == selectedTiles.length) 
+						{
+							m = 0;
+							System.out.println("m: " + m);
+						}
 						
-						selectedTiles[i] = pos;//pos.clone();
-						i++;
+						if(n == selectedTiles[m].length) 
+						{
+							n = 0;
+							System.out.println("n: " + n);
+						}
+						
+						int[] pos = {x,y};
+						selectedTiles[m][n] = pos.clone(); 
+						n++;
 					}
-				}*/
+					m++;
+					n = 0;
+				}
 				this.dataMap.setSelectedTile(selectedTiles);
 				isMouseDragged = false;
 			}
 			else
 			{
-				dataMap.setSelectedTile(me.getX(), me.getY());
+				int [][][] selectedSingleTile = null;
+				selectedSingleTile = new int [1][1][2];
+				selectedSingleTile[0][0][0] = (mousePressedX/dataMap.TILE_SIZE);
+				selectedSingleTile[0][0][1] = (mousePressedY/dataMap.TILE_SIZE);
+				dataMap.setSelectedTile(selectedSingleTile);
 			}
 		}
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		// TODO Auto-generated method stub
 		isMouseDragged = true;
-		System.out.println("x: " + e.getX());
 	}
 
 	@Override

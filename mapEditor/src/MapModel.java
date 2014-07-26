@@ -45,6 +45,7 @@ public class MapModel {
 		}
 	}
 
+	@Deprecated
 	public void addTile(int x, int y) {
 		//int x1 = (x / TILE_SIZE);
 		//int y1 = (y / TILE_SIZE);
@@ -62,6 +63,7 @@ public class MapModel {
 		x2 = (x2 / TILE_SIZE);
 		y2 = (y2 / TILE_SIZE);
 		
+		//in case of a drag
 		for (int i = x1; i <= x2; i++) 
 		{
 			for (int j = y1; j <= y2; j++) 
@@ -88,6 +90,7 @@ public class MapModel {
 		}
 	}
 	
+	@Deprecated
 	public void setSelectedTile(int x, int y) {
 		//this.selectedTile[0][0] = (x / TILE_SIZE);
 		//this.selectedTile[0][1] = (y / TILE_SIZE);

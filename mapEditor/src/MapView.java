@@ -65,6 +65,7 @@ public class MapView extends JPanel implements Runnable {
 	
 	public void drawTile(Graphics2D g2d) 
 	{
+		//on load l'image au complet et l'on draw seulement de x1 -> x2 / y1 ->y2 
 		BufferedImage bf = dataMap.getTileSet();
 		int x = -1,
 			y = -1;
@@ -79,8 +80,8 @@ public class MapView extends JPanel implements Runnable {
 					y = dataMap.getMap()[i][j][1];
 					if(x != -1 && y != -1)
 					{
+						bf = null;
 						bf = dataMap.getTile((x/TILE_SIZE), (y/TILE_SIZE));
-						//System.out.println("Map TILE: " + x + " : " + y);
 						g2d.drawImage(bf,(i * TILE_SIZE),(j * TILE_SIZE),TILE_SIZE,TILE_SIZE,null);
 					}
 				}

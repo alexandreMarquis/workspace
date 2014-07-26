@@ -101,30 +101,19 @@ public class MapController implements MouseListener,MouseMotionListener,KeyListe
 						mouseReleaseY = temp;
 					}
 					
-					/*for(int x = mousePressedX; x <= mouseReleaseX; x += dataMap.TILE_SIZE)
-					{
-						for(int y = mousePressedY; y <= mouseReleaseY; y += dataMap.TILE_SIZE)
-						{
-							this.dataMap.addTile(x, y);
-							this.dataMap.setNeedToBeUpdate(true);
-						}
-					}*/
-					
 					this.dataMap.addTile(mousePressedX, mousePressedY, mouseReleaseX, mouseReleaseY);
 					this.dataMap.setNeedToBeUpdate(true);
-					
-					isMouseDragged = false;
+					this.isMouseDragged = false;
 					
 					//reset selection rectangle
 					this.dataMap.setSelectionRectangle(0,0,0,0, true);
 				}
 				else
 				{
-					this.dataMap.addTile(me.getX(), me.getY());
+					this.dataMap.addTile(mousePressedX, mousePressedY, mouseReleaseX, mouseReleaseY);
 					this.dataMap.setNeedToBeUpdate(true);
 				}
 			}
-			
 		}
 	}
 
