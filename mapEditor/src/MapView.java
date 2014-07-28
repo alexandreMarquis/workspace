@@ -21,6 +21,7 @@ public class MapView extends JPanel implements Runnable {
 	
 	private Thread animator;
 	private MapModel dataMap = null;
+	private BufferedImage [][] arrayOfBufferedTile = null;
 	
 	public MapView(MapModel dataMap)
 	{
@@ -62,7 +63,42 @@ public class MapView extends JPanel implements Runnable {
 			g2d.drawLine(0, i, width, i);
 		}
 	}
-	
+	public static BufferedImage [][] convertBufferedTileSetToArrayOfBufferedTile(BufferedImage bf)
+	{
+		BufferedImage [][] arrayTileImages = new BufferedImage[bf.getWidth()/TILE_SIZE][bf.getHeight()/TILE_SIZE];
+		int m = 0,
+			n = 0;
+		for(int i = 0; i < bf.getWidth(); i += TILE_SIZE)
+		{
+			for(int j = 0; j < bf.getHeight(); j += TILE_SIZE)
+			{
+				if(m == arrayTileImages.length) 
+				{
+					m = 0;
+					System.out.println("m: " + m);
+				}
+				
+				if(n == arrayTileImages[m].length) 
+				{
+					n = 0;
+					System.out.println("n: " + n);
+				}
+				
+				BufferedImage tile = bf.getSubimage(i, j, TILE_SIZE, TILE_SIZE);
+				BufferedImage newImage = new BufferedImage(
+				        tile.getWidth(), tile.getHeight(),
+				        BufferedImage.TYPE_INT_ARGB);
+				Graphics2D g = newImage.createGraphics();
+				g.drawImage(tile, 0, 0, null);
+				g.dispose();
+				arrayTileImages[m][n] = newImage;
+				n++;
+			}
+			m++;
+			n = 0;
+		}
+		return arrayTileImages;
+	}
 	public void drawTile(Graphics2D g2d) 
 	{
 		//on load l'image au complet et l'on draw seulement de x1 -> x2 / y1 ->y2 
@@ -72,6 +108,11 @@ public class MapView extends JPanel implements Runnable {
 		
 		if(bf != null)
 		{
+			if(arrayOfBufferedTile == null)
+			{
+				arrayOfBufferedTile = convertBufferedTileSetToArrayOfBufferedTile(bf);
+			}
+			
 			for(int i = 0; i < dataMap.getMap().length; i++)
 			{
 				for(int j = 0; j < dataMap.getMap()[i].length; j++)
@@ -81,12 +122,11 @@ public class MapView extends JPanel implements Runnable {
 					if(x != -1 && y != -1)
 					{
 						bf = null;
-						bf = dataMap.getTile((x/TILE_SIZE), (y/TILE_SIZE));
-						g2d.drawImage(bf,(i * TILE_SIZE),(j * TILE_SIZE),TILE_SIZE,TILE_SIZE,null);
+						g2d.drawImage(arrayOfBufferedTile[x/TILE_SIZE][y/TILE_SIZE], (i * TILE_SIZE),(j * TILE_SIZE),TILE_SIZE,TILE_SIZE, null);
 					}
 				}
 			}
-		}	
+		}
 	}
 	
 	public void drawSelectionRectangle(Graphics2D g2d)
